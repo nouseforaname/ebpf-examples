@@ -42,6 +42,11 @@
             #gdb # readin out symbol addresses from binaries
             perf-tools  #uprobe debugging. docs: https://www.kernel.org/doc/Documentation/trace/uprobetracer.txt
             rust-bin.beta.latest.default
+
+
+            #aya rs dev env guide dependency
+            cargo-generate
+            bpf-linker
           ];
          #buildinputs = with pkgs;[
          #];
