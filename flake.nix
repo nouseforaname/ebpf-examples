@@ -28,19 +28,12 @@
            clang-tools
            clang
            llvm
-           #bpftools # dump vmlinux.h
+           bpftools # dump vmlinux.h
            #gdb # readin out symbol addresses from binaries
-           #perf-tools  #uprobe debugging. docs: https://www.kernel.org/doc/Documentation/trace/uprobetracer.txt
+           perf-tools  #uprobe debugging. docs: https://www.kernel.org/doc/Documentation/trace/uprobetracer.txt
           ];
-          buildinputs = with pkgs;[
-           #libbpf
-           #linuxHeaders
-           #glibc_multi.dev
-
-
-           #stdenv
-           #glibc.dev
-          ];
+         #buildinputs = with pkgs;[
+         #];
 
         };
       }
