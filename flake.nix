@@ -19,9 +19,10 @@
             }
           )];
           nativeBuildInputs = with pkgs; [
-            clang-tools
-            clang
-            llvm
+           clang-tools
+           clang
+           llvm
+           #bpftools # dump vmlinux.h
           ];
           buildinputs = with pkgs;[
             libbpf
