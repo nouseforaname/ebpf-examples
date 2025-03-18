@@ -1,14 +1,24 @@
 {
-  description = "Flake utils demo";
+  description = "rust go ebpf devshell playground";
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    #need rust nightly, it's a requirement of aya rs
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = { nixpkgs, flake-utils, ... }:
+  outputs = { nixpkgs, flake-utils, rust-overlay,... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        overlays = [ (import rust-overlay) ];
+        pkgs = import nixpkgs {
+          inherit system overlays;
+        };
       in
       {
         devShells.default = pkgs.mkShell  {
@@ -25,12 +35,13 @@
             }
           )];
           nativeBuildInputs = with pkgs; [
-           clang-tools
-           clang
-           llvm
-           bpftools # dump vmlinux.h
-           #gdb # readin out symbol addresses from binaries
-           perf-tools  #uprobe debugging. docs: https://www.kernel.org/doc/Documentation/trace/uprobetracer.txt
+            clang-tools
+            clang
+            llvm
+            bpftools # dump vmlinux.h
+            #gdb # readin out symbol addresses from binaries
+            perf-tools  #uprobe debugging. docs: https://www.kernel.org/doc/Documentation/trace/uprobetracer.txt
+            rust-bin.beta.latest.default
           ];
          #buildinputs = with pkgs;[
          #];
@@ -39,3 +50,4 @@
       }
     );
 }
+
