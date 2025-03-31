@@ -1,3 +1,7 @@
+#notes
+# sudo cat /proc/kallsyms => show available hooks in kernel calls
+
+
 {
   description = "rust go ebpf devshell playground";
 
@@ -49,6 +53,8 @@
             rust-bindgen #aya rs dev env guide dependency
             cargo-generate
             bpf-linker # dependency of aya tool generate rust bindings https://aya-rs.dev/book/aya/aya-tool/
+            trace-cmd  #sudo trace-cmd list => list available tracepoints
+
           ];
 
         };
